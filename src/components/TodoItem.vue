@@ -2,10 +2,10 @@
     <div class="todo-item">
         <div class="todo-item-content">
             <div class="todo-item-title">
-                Walk
+                {{title}}
             </div>
             <div class="todo-item-description">
-                Go to Forest
+                {{description}}
             </div>
         </div>
     </div>
@@ -13,6 +13,7 @@
 
 <script>
     export default {
+        props:['title','description']
 
     }
 </script>
