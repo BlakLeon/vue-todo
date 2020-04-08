@@ -1,128 +1,116 @@
+<!-- HTML part -->
 <template>
   <div id="app">
-    <h1>ToDo App</h1>
     <div class="todo-wrapper">
       <div class="todo-container">
-        <TodoList :todos="todos" />
-        <div class="todo-create-btn">
-          <div class="app-btn">
-            Create
-          </div>
+        <!-- <TodoList /> -->
+        <todo-list :todos="todos" />
+        <div class="todo-create-btn-container">
+          <todo-create @formSubmitted="createTodo" />
         </div>
-      </div>
-    </div>
-    <div class="modal">
-      <div class="modal-content">
-
       </div>
     </div>
   </div>
 </template>
 
+<!-- JS part -->
 <script>
-
-import TodoList from "@/components/TodoList"
-
-
-  export default {
-    name: 'App',
-    data() {  
-      return{
-        todos:[
-          {
-            _id:"1",
-            title:"Walk the Dog",
-            description:"Near the zoo"
-          },
-                    {
-            _id:"2",
-            title:"Walk the cat",
-            description:"Near the zoo"
-          },
-                    {
-            _id:"3",
-            title:"Walk the inguana",
-            description:"Near the zoo"
-          },
-        ]
-      }
-
-    },
-    components: {
-      TodoList
-    },
+import TodoList from '@/components/TodoList'
+import TodoCreate from '@/components/TodoCreate'
+import store from '@/store'
+export default {
+  name: 'app',
+  components: {
+    TodoList, TodoCreate
+  },
+  data() {
+    return {
+      todos: store.state.todos
+    }
+  },
+  // This function is run automaticaly by VUE framework
+  created() {
+    // playground()
+    this.todos = store.dispatch('initStore')
+  },
+  methods: {
+    createTodo(todo) {
+      store.dispatch('createTodo', todo)
+    }
   }
+}
 </script>
 
-<style lang="scss" scoped >
-  #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+<!-- Stylings, css, scss.... -->
+<style lang="scss">
+$color-red: red;
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+.app-error {
+  color: #ff1212;
+}
+.app-form {
+  .label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold
   }
-
-
-  
-
-  .app-btn{
-    font-size: 20px;
+  .form-input {
     padding: 10px;
-    border-radius: 5px;
-    background-color: #795899;
-    color: #fff;
-    font-weight: bold;
-    &:hober{
-      cursor: pointer;
+    font-size: 17px;
+  }
+  .form-control {
+    margin-bottom: 10px;
+    &-last {
+      margin-bottom: 0;
     }
   }
-
-  .todo {
-    &-wrapper {
-      margin: 0 auto;
-      width: 400px;
-      min-height: 400px;
-      background-color: #ededed;
-    }
-
-    &-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 100%;
-      border-radius: 5px;
-    }
-    &-create-btn{
+}
+.is-primary {
+  background-color: #47ca47 !important;
+}
+.is-warning {
+  background-color: #ffa753 !important;
+}
+.is-danger {
+  background-color: #ff5a5a !important;
+}
+.app-button {
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #795899;
+  color: white;
+  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.todo {
+  &-wrapper {
+    /* flexible styling */
+    display: flex;
+    /* it defines alignment along the main axis */
+    justify-content: center;
+    /*flex-direction: column;*/
+    width: 100%;
+    /*height: 2000px;*/
+  }
+  &-create-btn-container {
     margin: 10px;
   }
-
-
+  &-container {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    min-height: 200px;
+    background-color: #ededed;
+    border-radius: 5px;
   }
-
-  .modal{
-    display: none;
-    position: fixed; //stay in plce
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba($color: #000000, $alpha: 0.4);
-  }
-.modal-content{
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 75%;
-
 }
-
-
-
-
-
 </style>
