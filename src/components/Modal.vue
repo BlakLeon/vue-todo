@@ -27,7 +27,7 @@ export default {
     }
   },
   watch: {
-    close(isClose, preIsClose) {
+    close(isClose) {
       if (isClose && this.isOpen) {
         this.isOpen = false
       }
