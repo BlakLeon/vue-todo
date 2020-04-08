@@ -1,8 +1,10 @@
 <template>
     <div class="todo-list">
-        <TodoItem :title="'Walk the dog'" :description="'Go to forest and Buy bread'"/>
-        <TodoItem :title="todoTitle" :description="todoDesc" />
-        
+        <TodoItem  v-for="todo in todos"
+         :key="todo._id"
+         :title="todo.title" 
+         :description="todo.description" />
+
     </div>
 
 </template>
@@ -15,16 +17,19 @@ import TodoItem from "@/components/TodoItem"
         components:{
             TodoItem
         },
-        data(){
-            return{
-                todoTitle:"Learn Vue",
-                todoDesc:"Vue is the best"
+        props:{
+            todos:{
+                required:true,
+                type:Array
             }
-        }
+        },
 
     }
 </script>
 
 <style lang="scss" scoped>
+.todo-list{
+    flex: 1;
+}
 
 </style>

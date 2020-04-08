@@ -3,7 +3,17 @@
     <h1>ToDo App</h1>
     <div class="todo-wrapper">
       <div class="todo-container">
-        <TodoList />
+        <TodoList :todos="todos" />
+        <div class="todo-create-btn">
+          <div class="app-btn">
+            Create
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal">
+      <div class="modal-content">
+
       </div>
     </div>
   </div>
@@ -16,7 +26,26 @@ import TodoList from "@/components/TodoList"
 
   export default {
     name: 'App',
-    data() {
+    data() {  
+      return{
+        todos:[
+          {
+            _id:"1",
+            title:"Walk the Dog",
+            description:"Near the zoo"
+          },
+                    {
+            _id:"2",
+            title:"Walk the cat",
+            description:"Near the zoo"
+          },
+                    {
+            _id:"3",
+            title:"Walk the inguana",
+            description:"Near the zoo"
+          },
+        ]
+      }
 
     },
     components: {
@@ -35,6 +64,21 @@ import TodoList from "@/components/TodoList"
     margin-top: 60px;
   }
 
+
+  
+
+  .app-btn{
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #795899;
+    color: #fff;
+    font-weight: bold;
+    &:hober{
+      cursor: pointer;
+    }
+  }
+
   .todo {
     &-wrapper {
       margin: 0 auto;
@@ -45,10 +89,40 @@ import TodoList from "@/components/TodoList"
 
     &-container {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       width: 100%;
       border-radius: 5px;
     }
+    &-create-btn{
+    margin: 10px;
+  }
+
 
   }
+
+  .modal{
+    display: none;
+    position: fixed; //stay in plce
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+  }
+.modal-content{
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 75%;
+
+}
+
+
+
+
+
 </style>
